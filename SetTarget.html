@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>目標設立</title>
+    <style>
+        #pattern_div {
+            border: 2px solid white;
+            width: 500px;
+            height: auto;
+            margin-top: 20px;
+            margin-left: 500px;
+            z-index: 100;
+        }
+
+        .pattern {
+            border: 2px solid white;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+
+        .put_text{
+            border: 2px solid red;
+            margin-top: 30px;
+            margin-left: 300px;
+            width: 800px;
+            height:550px;
+            position: relative;
+        }
+        .put_png {
+            border: 2px #ccc dotted;
+            width: 160px;
+            height: 500px;
+            overflow: auto;
+            margin: 10px 10px 10px 10px;
+            position: absolute;
+            top: 10px;
+            left: 50px;
+            opacity: 0.7;
+        }
+
+        .myactive {
+            border: 2px solid green;
+        }
+
+        .myhover {
+            border: 2px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="pattern_div">
+        <img src="images/clsss/c1.png" class="pattern">
+        <img src="images/clsss/c2.png" class="pattern">
+        <img src="images/clsss/c3.png" class="pattern">
+    </div>
+    <div class="put_text">
+        <div class="put_png">
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="../js/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".pattern").draggable({ helper: 'clone', opacity: 0.40 });
+
+            $(".put_png").droppable({
+                accept: "*",
+                activeClass: 'myactive',
+                hoverClass: 'myhover',
+                tolerance: 'pointer',
+                out: function (ev, ui) {
+                    var src = ui.draggable.attr('src');
+                    alert(src + ' 未置入已返回');
+                },
+                drop: function (ev, ui) {
+                    ui.draggable.clone().fadeOut("fast",
+                        function () {
+                            $(this).fadeIn("fast");//<img>                                                  
+                        }).appendTo($(this));//<div></div>
+                }//drop:
+            });
+        }); //$(document).ready()
+
+    </script>
+</body>
+
+</html>
